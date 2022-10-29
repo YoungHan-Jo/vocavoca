@@ -12,6 +12,15 @@ spring:
       hibernate:
         format_sql: true
 
+
+server:
+  servlet:
+    session:
+      tracking-modes: cookie
+      timeout: 1800
+
+
+
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
