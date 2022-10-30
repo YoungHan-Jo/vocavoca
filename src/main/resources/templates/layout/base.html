@@ -15,10 +15,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link th:href="@{/css/styles.css}" href="css/styles.css" rel="stylesheet" />
-    <link th:href="@{/css/custom.css}" href="css/styles.css" rel="stylesheet" />
     <style>
         .default-bg {
             background-color: rgba(75, 50, 51, 0.48);
+        }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
         }
     </style>
 </head>
@@ -26,13 +29,11 @@
 
 <nav th:fragment="common_nav(li)" class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#page-top">VocaVoca</a>
+        <a class="navbar-brand" href="#page-top" th:href="@{/}">VocaVoca</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto my-2 my-lg-0">
                 <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                 <th:block th:replace="${li}" />
             </ul>
         </div>

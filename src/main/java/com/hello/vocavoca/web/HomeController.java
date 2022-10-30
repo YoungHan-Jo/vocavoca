@@ -1,13 +1,22 @@
 package com.hello.vocavoca.web;
 
+import com.hello.vocavoca.domain.member.Member;
+import com.hello.vocavoca.web.argumentResolver.Login;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
 
     @GetMapping("/")
-    public String home() {
-        return "home";
+    public String home(@Login Member member, Model model) {
+        if (member == null) {
+            return "home";
+        }
+        model.addAttribute("member", member);
+        return "loginHome";
     }
+
+
 }

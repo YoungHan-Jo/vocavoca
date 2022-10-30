@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/base :: common_header(~{::title})">
+    <title>Home</title>
+</head>
+
+<body id="page-top" class="default-bg">
+<!-- Navigation-->
+<nav th:replace="layout/base :: common_nav(~{::li})">
+    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+</nav>
+
+<!-- Contact-->
+<section class="page-section h-100 d-flex align-items-center" >
+    <div class="container px-4 px-lg-5 ">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6 text-center">
+                <h2 class="mt-0 text-white">Log In</h2>
+                <hr class="divider" />
+            </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+            <div class="col-lg-6">
+                <form id="contactForm" action="" th:action th:object="${form}" method="post" >
+
+                    <!-- Email address input-->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="email" th:field="*{email}" type="email"
+                               th:errorclass="field-error" placeholder="name@example.com" />
+                        <label for="email">Email address</label>
+                        <div class="field-error" th:errors="*{email}"></div>
+                    </div>
+
+                    <!-- password input-->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="password" th:field="*{password}" type="password"
+                               th:errorclass="field-error" placeholder="Enter your password..."  />
+                        <label for="password">Password</label>
+                        <div class="field-error" th:errors="*{password}"></div>
+                    </div>
+
+                    <!-- Submit Button-->
+                    <div class="d-grid"><button class="btn btn-primary btn-xl" type="submit">Log In</button></div>
+                    <div class="row justify-content-center">
+                        <button class="w-50 btn btn-dark btn-sm mt-3"
+                                th:onclick="|location.href='@{/members/add}'|" type="button">SIGN IN</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Footer-->
+<footer th:replace="fragment/footer :: footer">
+    푸터
+</footer>
+<th:block th:replace="fragment/script :: script"></th:block>
+</body>
+</html>
