@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -12,15 +13,15 @@ import javax.validation.constraints.NotNull;
 public class AddMemberForm {
 
     @Email
-    @NotEmpty
+    @NotBlank
     private String email;
 
-    @NotEmpty
+    @NotBlank
     private String password;
-    @NotEmpty
+    @NotBlank
     private String passwordConfirm;
 
-    @NotEmpty
+    @NotBlank
     private String name;
 
     @NotNull

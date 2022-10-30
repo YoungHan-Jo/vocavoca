@@ -40,12 +40,17 @@
                         <div class="field-error" th:errors="*{password}"></div>
                     </div>
 
-                    <!-- password input-->
+                    <!-- password confirm input-->
                     <div class="form-floating mb-3">
                         <input class="form-control" id="passwordConfirm" th:field="*{passwordConfirm}" type="password"
                                th:errorclass="field-error" placeholder="Confirm your password..."  />
                         <label for="passwordConfirm">Confirm Password</label>
                         <div class="field-error" th:errors="*{passwordConfirm}"></div>
+                    </div>
+                    <div th:if="${#fields.hasGlobalErrors()}">
+                        <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+                            글로벌 오류 메시지
+                        </p>
                     </div>
 
                     <!-- Name input-->

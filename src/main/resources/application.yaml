@@ -11,6 +11,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  messages:
+    basename: messages,errors
 
 
 server:
@@ -24,3 +26,4 @@ server:
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
+  org.apache.coyote.http11: debug

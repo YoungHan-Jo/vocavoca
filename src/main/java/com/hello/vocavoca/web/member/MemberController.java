@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -33,10 +34,22 @@ public class MemberController {
     public String add(@Valid @ModelAttribute("form") AddMemberForm form, BindingResult bindingResult) {
         log.info("form={}",form);
 
+        if (form.getEmail() != null) {
+            Optional<Member> optionalMember = memberRepository.findByEmail(form.getEmail());
+            if (optionalMember.isPresent()) {
+                bindingResult.rejectValue("email","duplicate", new Object[]{form.getEmail()}, null);
+            }
+        }
+
+        if (form.getPassword() != null && form.getPasswordConfirm() != null) {
+            if (!form.getPassword().equals(form.getPasswordConfirm())) {
+                bindingResult.reject("passwordConfirm",null,"비밀번호 확인이 일치하지 않습니다.");
+            }
+        }
+
         if (bindingResult.hasErrors()) {
             return "members/addMemberForm";
         }
-
 
         saveMember(form);
 
