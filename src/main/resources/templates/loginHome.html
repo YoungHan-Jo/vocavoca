@@ -8,7 +8,9 @@
         <!-- Navigation-->
         <nav th:replace="layout/base :: common_nav(~{::li})">
             <li class="nav-item">
-                <a class="nav-link" href="#signup" th:href="@{/logout}">LOG OUT</a>
+                <form id="logout" th:action="@{/logout}" method="post">
+                    <a class="nav-link " href="#" onclick="return chk_form()">LOG OUT</a>
+                </form>
             </li>
         </nav>
 
@@ -28,11 +30,15 @@
             </div>
         </header>
 
-
         <!-- Footer-->
         <footer th:replace="fragment/footer :: footer">
             푸터
         </footer>
         <th:block th:replace="fragment/script :: script"></th:block>
     </body>
+<script>
+    function chk_form() {
+        document.getElementById('logout').submit();
+    }
+</script>
 </html>
