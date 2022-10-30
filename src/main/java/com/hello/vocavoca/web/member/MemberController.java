@@ -37,6 +37,7 @@ public class MemberController {
             return "members/addMemberForm";
         }
 
+
         saveMember(form);
 
         return "redirect:/login";
