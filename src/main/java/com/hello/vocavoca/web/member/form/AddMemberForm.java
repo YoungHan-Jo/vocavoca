@@ -3,11 +3,10 @@ package com.hello.vocavoca.web.member.form;
 import com.hello.vocavoca.domain.member.Gender;
 import lombok.Builder;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Data
 public class AddMemberForm {
@@ -17,7 +16,9 @@ public class AddMemberForm {
     private String email;
 
     @NotBlank
+    @Length(min = 8, max = 15)
     private String password;
+
     @NotBlank
     private String passwordConfirm;
 

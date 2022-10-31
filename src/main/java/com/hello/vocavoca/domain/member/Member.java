@@ -1,18 +1,16 @@
 package com.hello.vocavoca.domain.member;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.hello.vocavoca.domain.BaseTimeEntity;
+import lombok.*;
 
 import javax.persistence.*;
 
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder @Getter
 @Entity
-public class Member {
+public class Member extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "member_id")
