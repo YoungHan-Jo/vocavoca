@@ -14,12 +14,12 @@ public class HomeController {
     @GetMapping("/")
     public String home(@Login Member member, Model model) {
         log.info("member={}",member);
-        if (member == null) {
-            return "home";
-        }
-        model.addAttribute("member", member);
-        return "loginHome";
-    }
 
+        if (member != null) {
+            model.addAttribute("member", member);
+        }
+
+        return "home";
+    }
 
 }

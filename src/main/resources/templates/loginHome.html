@@ -6,12 +6,7 @@
 
     <body id="page-top" class="default-bg">
         <!-- Navigation-->
-        <nav th:replace="layout/base :: common_nav(~{::li})">
-            <li class="nav-item">
-                <form id="logout" th:action="@{/logout}" method="post">
-                    <a class="nav-link " href="#" onclick="return chk_form()">LOG OUT</a>
-                </form>
-            </li>
+        <nav th:replace="layout/base :: common_nav()">
         </nav>
 
         <!-- Masthead-->
@@ -36,9 +31,4 @@
         </footer>
         <th:block th:replace="fragment/script :: script"></th:block>
     </body>
-<script>
-    function chk_form() {
-        document.getElementById('logout').submit();
-    }
-</script>
 </html>

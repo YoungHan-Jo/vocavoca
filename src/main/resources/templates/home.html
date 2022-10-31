@@ -6,10 +6,7 @@
 
     <body id="page-top" class="default-bg">
         <!-- Navigation-->
-        <nav th:replace="layout/base :: common_nav(~{::li})">
-            <li class="nav-item">
-                <a class="nav-link" href="#signup" th:href="@{/members/add}">sign up</a>
-            </li>
+        <nav th:replace="layout/base :: common_nav()">
         </nav>
 
         <!-- Masthead-->
@@ -22,12 +19,12 @@
                     </div>
                     <div class="col-lg-8 align-self-baseline">
                         <p class="text-white-75 mb-5">We can help you memorize words with VocaVoca's training systems </p>
-                        <a class="btn btn-primary btn-xl" href="#signup" th:href="@{/login}" >Log In</a>
+                        <a th:unless="${member}" class="btn btn-primary btn-xl" href="#signup" th:href="@{/login}" >Log In</a>
+                        <a th:if="${member}" class="btn btn-primary btn-xl" href="#signup" th:href="@{/login}">go to training</a>
                     </div>
                 </div>
             </div>
         </header>
-
 
         <!-- Footer-->
         <footer th:replace="fragment/footer :: footer">
