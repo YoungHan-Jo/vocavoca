@@ -36,7 +36,7 @@
 
                 <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
 
-                <th:block th:unless="${member}">
+                <th:block th:unless="${session.loginMember}">
                     <li class="nav-item">
                         <a class="nav-link" href="#signup" th:href="@{/login}">Log In</a>
                     </li>
@@ -44,7 +44,7 @@
                         <a class="nav-link" href="#signup" th:href="@{/members/add}">Sign Up</a>
                     </li>
                 </th:block>
-                <th:block th:if="${member}">
+                <th:block th:if="${session.loginMember}">
                     <li class="nav-item">
                         <form id="logout" th:action="@{/logout}" method="post">
                             <a class="nav-link " href="#" onclick="document.getElementById('logout').submit();">Log Out</a>

@@ -1,8 +1,6 @@
 package com.hello.vocavoca.web.interceptor;
 
-import com.hello.vocavoca.domain.member.repository.MemberRepository;
 import com.hello.vocavoca.web.SessionConst;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,7 +21,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         log.info("check login interceptor {}", requestURI);
 
         HttpSession session = request.getSession();
-        if (session == null || session.getAttribute(SessionConst.LOGIN_MEMBER_ID) == null) {
+        if (session == null || session.getAttribute(SessionConst.LOGIN_MEMBER) == null) {
             log.info("unauthorized user");
             response.sendRedirect("/login?redirectURL=" + requestURI);
             return false;

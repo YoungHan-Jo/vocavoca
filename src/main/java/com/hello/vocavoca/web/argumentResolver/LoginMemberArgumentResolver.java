@@ -44,12 +44,11 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
             return null;
         }
 
-        Long memberId = (Long) session.getAttribute(SessionConst.LOGIN_MEMBER_ID);
-        Optional<Member> optionalMember = memberRepository.findById(memberId);
-        if (optionalMember.isEmpty()) {
+        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if (loginMember == null) {
             return null;
         }
 
-        return optionalMember.get();
+        return loginMember;
     }
 }

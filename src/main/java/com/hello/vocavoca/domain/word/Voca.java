@@ -10,7 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder @Getter
 @Entity
-public class Word extends BaseTimeEntity {
+public class Voca extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "word_id")

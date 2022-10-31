@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/base :: common_header(~{::title})">
+    <title>Home</title>
+</head>
+
+<body id="page-top" class="default-bg">
+<!-- Navigation-->
+<nav th:replace="layout/base :: common_nav()">
+</nav>
+
+<!-- Contact-->
+<section class="page-section h-100 d-flex align-items-center" id="signup">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6 text-center">
+                <h2 class="mt-0 text-white">Sign Up</h2>
+                <hr class="divider" />
+            </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+            <div class="col-lg-6">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Footer-->
+<footer th:replace="fragment/footer :: footer">
+    푸터
+</footer>
+<th:block th:replace="fragment/script :: script"></th:block>
+</body>
+</html>

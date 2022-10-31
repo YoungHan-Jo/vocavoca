@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/base :: common_header(~{::title})">
+    <title>Home</title>
+</head>
+
+<body id="page-top" class="default-bg">
+<!-- Navigation-->
+<nav th:replace="layout/base :: common_nav()">
+</nav>
+
+<!-- Contact-->
+<section class="page-section h-100 d-flex align-items-center" id="signup">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6 text-center">
+                <h2 class="mt-0 text-white">Sign Up</h2>
+                <hr class="divider" />
+            </div>
+        </div>
+
+        <div class="justify-content-center">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:classappend="${pageMaker.hasPrev}? _ : 'disabled'">
+                        <a class="page-link" th:href="@{/studySets(page=${pageMaker.startPage - 2}, size=${formPage.size})}">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"
+                        th:classappend="${num == formPage.number + 1} ? 'active' : _"
+                        th:each="num : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">
+                        <a class="page-link"
+                           th:href="@{/studySets(page=${num - 1}, size=${formPage.size})}"
+                           th:text="${num}">0</a>
+                    </li>
+                    <li class="page-item" th:classappend="${pageMaker.hasNext}? _ : 'disabled'">
+                        <a class="page-link" th:href="@{/studySets(page=${pageMaker.endPage}, size=${formPage.size})}">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+
+<!-- Footer-->
+<footer th:replace="fragment/footer :: footer">
+    푸터
+</footer>
+<th:block th:replace="fragment/script :: script"></th:block>
+</body>
+</html>
