@@ -29,7 +29,7 @@ public class TestDataInit {
     public void init() {
         Member member = generateMember();
 
-        IntStream.range(1, 10).forEach(i ->
+        IntStream.range(1, 20).forEach(i ->
                 generateSampleStudySets(member, i)
         );
 

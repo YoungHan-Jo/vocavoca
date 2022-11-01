@@ -1,6 +1,9 @@
 package com.hello.vocavoca.web.studyset;
 
+import com.hello.vocavoca.domain.studyset.StudySet;
 import com.hello.vocavoca.domain.studyset.repository.StudySetRepository;
+import com.hello.vocavoca.domain.word.Voca;
+import com.hello.vocavoca.domain.word.repository.VocaRepository;
 import com.hello.vocavoca.web.pageMaker;
 import com.hello.vocavoca.web.studyset.form.StudySetListForm;
 import com.hello.vocavoca.web.studyset.form.StudySetSaveForm;
@@ -10,10 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class StudySetController {
 
     private final StudySetRepository studySetRepository;
+    private final VocaRepository vocaRepository;
 
     @GetMapping
     public String list(Pageable pageable, Model model) {
@@ -41,6 +45,24 @@ public class StudySetController {
 
         return "studySets/studySets";
     }
+
+    @GetMapping("/{studySetId}")
+    public String studySet(@PathVariable Long studySetId, Model model) {
+
+        Optional<StudySet> optionalStudySet = studySetRepository.findById(studySetId);
+        if (optionalStudySet.isEmpty()) {
+            // TODO: 2022-11-01  exception
+        }
+
+        StudySet studySet = optionalStudySet.get();
+        List<Voca> vocas = vocaRepository.findByStudySet(studySet);
+
+        model.addAttribute("studySet", studySet);
+        model.addAttribute("vocas", vocas);
+
+        return "studySets/studySet";
+    }
+
 
     @GetMapping("/add")
     public String addForm(@ModelAttribute("form") StudySetSaveForm form) {

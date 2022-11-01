@@ -22,7 +22,7 @@
                     <div class="col-lg-8 align-self-baseline">
                         <p class="text-white-75 mb-5">We can help you memorize words with VocaVoca's training systems </p>
                         <a th:unless="${member}" class="btn btn-primary btn-xl" href="#signup" th:href="@{/login}" >Log In</a>
-                        <a th:if="${member}" class="btn btn-primary btn-xl" href="#signup" th:href="@{/studySets}">go to training</a>
+                        <a th:if="${member}" class="btn btn-primary btn-xl" href="#signup" th:href="@{/studySets(page=0, size=6)}">go to training</a>
                     </div>
                 </div>
             </div>
