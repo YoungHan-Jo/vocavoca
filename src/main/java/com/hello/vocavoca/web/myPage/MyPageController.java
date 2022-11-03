@@ -3,7 +3,9 @@ package com.hello.vocavoca.web.myPage;
 import com.hello.vocavoca.domain.member.Member;
 import com.hello.vocavoca.domain.member.repository.MemberRepository;
 import com.hello.vocavoca.domain.myPage.MyPageService;
+import com.hello.vocavoca.web.SessionConst;
 import com.hello.vocavoca.web.argumentResolver.Login;
+import com.hello.vocavoca.web.myPage.form.ChangePasswordForm;
 import com.hello.vocavoca.web.myPage.form.EditMemberForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Slf4j
@@ -30,6 +34,9 @@ public class MyPageController {
 
     @GetMapping
     public String myPage(@Login Member member, Model model) {
+
+        log.info("name={}",member.getName());
+        log.info("gender={}",member.getGender());
 
         model.addAttribute("member", member);
 
@@ -51,11 +58,12 @@ public class MyPageController {
     @PostMapping("/edit")
     public String update(@Login Member member,
                          @Valid @ModelAttribute("form") EditMemberForm form,
-                         BindingResult bindingResult) {
+                         BindingResult bindingResult,
+                         HttpServletRequest request) {
         log.info("form={}",form);
         log.info("error",bindingResult);
 
-        if (!passwordEncoder.matches(form.getPassword(), member.getPassword())) {
+        if (!form.getPassword().isBlank() && !passwordEncoder.matches(form.getPassword(), member.getPassword())) {
             bindingResult.reject("wrongPassword", "비밀번호가 일치하지 않습니다.");
         }
 
@@ -63,10 +71,54 @@ public class MyPageController {
             return "myPage/editMemberForm";
         }
 
-        Member editMember = generateEditMember(form);
-        member.editInfo(editMember);
+        Member editedMember = myPageService.editInfo(member.getId(), generateEditMember(form));
+
+        HttpSession session = request.getSession(false);
+        session.setAttribute(SessionConst.LOGIN_MEMBER, editedMember);
 
         return "redirect:/myPage";
+    }
+
+    @GetMapping("/password")
+    public String changePasswordForm(@ModelAttribute("form") ChangePasswordForm form) {
+
+        return "myPage/changePasswordForm";
+    }
+
+    @PostMapping("/password")
+    public String changePassword(@Login Member member,
+                                 @Valid @ModelAttribute("form") ChangePasswordForm form,
+                                 BindingResult bindingResult, HttpServletRequest request) {
+
+        if (!form.getCurrentPassword().isBlank() && !passwordEncoder.matches(form.getCurrentPassword(), member.getPassword())) {
+            bindingResult.reject("wrongPassword", "비밀번호가 일치하지 않습니다.");
+        }
+
+        if (!form.getNewPassword().equals(form.getNewPasswordConfirm())) {
+            bindingResult.reject("passwordConfirm",null,"비밀번호 확인이 일치하지 않습니다.");
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "myPage/changePasswordForm";
+        }
+
+        myPageService.changePassword(member.getId(), changePasswordMember(form));
+        invalidateSession(request);
+
+        return "myPage/changePasswordAlert";
+    }
+
+    private Member changePasswordMember(ChangePasswordForm form) {
+        return Member.builder()
+                .password(passwordEncoder.encode(form.getNewPassword()))
+                .build();
+    }
+
+    private void invalidateSession(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
     }
 
     private Member generateEditMember(EditMemberForm form) {
@@ -76,4 +128,5 @@ public class MyPageController {
                 .build();
         return editMember;
     }
+
 }

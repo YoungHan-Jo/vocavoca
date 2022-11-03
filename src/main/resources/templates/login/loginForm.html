@@ -39,6 +39,12 @@
                         <div class="field-error" th:errors="*{password}"></div>
                     </div>
 
+                    <div th:if="${#fields.hasGlobalErrors()}">
+                        <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+                            글로벌 오류 메시지
+                        </p>
+                    </div>
+
                     <!-- Submit Button-->
                     <div class="d-grid"><button class="btn btn-primary btn-xl" type="submit">Log In</button></div>
                     <div class="row justify-content-center">
