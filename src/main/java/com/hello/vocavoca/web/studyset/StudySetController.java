@@ -42,7 +42,6 @@ public class StudySetController {
         model.addAttribute("formPage", formPage);
         model.addAttribute("pageMaker", pageMaker);
 
-
         return "studySets/studySets";
     }
 
@@ -58,7 +57,7 @@ public class StudySetController {
         List<Voca> vocas = vocaRepository.findByStudySet(studySet);
 
         model.addAttribute("studySet", studySet);
-        model.addAttribute("vocas", vocas);
+    model.addAttribute("vocas", vocas);
 
         return "studySets/studySet";
     }

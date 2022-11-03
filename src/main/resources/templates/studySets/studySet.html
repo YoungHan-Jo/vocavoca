@@ -1,65 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
+<!-- head -->
 <head th:replace="layout/base :: common_header(~{::title})">
     <title>Home</title>
 </head>
+<Head th:replace="fragment/style :: style-card"></Head>
 
-<head>
-    <style>
-        .scene {
-            display: inline-block;
-            width: 100%;
-            height: 260px;
-            margin: 40px 0;
-            perspective: 600px;
-        }
-
-        .card {
-            background-color: rgba(75, 50, 51, 0.48);
-            border: none;
-            position: relative;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-            transform-style: preserve-3d;
-            transform-origin: center right;
-            transition: transform 0.6s;
-        }
-
-        .card.is-flipped {
-            transform: translateX(-100%) rotateY(-180deg);
-        }
-
-        .card__face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            line-height: 260px;
-            color: black;
-            text-align: center;
-            font-weight: bold;
-            font-size: 40px;
-            backface-visibility: hidden;
-        }
-
-        .card__face--front {
-            /*background-color: rgba(75, 50, 51, 0.48);*/
-        }
-
-        .card__face--back {
-            /*background-color: rgba(75, 50, 51, 0.48);*/
-            /*background: slateblue;*/
-            transform: rotateY(180deg);
-        }
-    </style>
-</head>
-
-
-
-
+<!-- body -->
 <body id="page-top" class="default-bg">
-<!-- Navigation-->
+
+<!-- Navigation -->
 <nav th:replace="layout/base :: common_nav()">
 </nav>
 
@@ -74,34 +25,29 @@
             </div>
         </div>
 
+        <!-- flip card carousel-->
         <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="1000000">
+                <div class="carousel-item" th:each="voca : ${vocas}" th:classappend="${vocaStat.first}?'active':_" data-bs-interval="1000000">
                     <div class="d-flex justify-content-center">
                         <div class="scene scene--card">
                             <div class="card">
-                                <div class="card__face card__face--front">front1</div>
-                                <div class="card__face card__face--back">back1</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item" data-bs-interval="1000000">
-                    <div class="d-flex justify-content-center">
-                        <div class="scene scene--card">
-                            <div class="card">
-                                <div class="card__face card__face--front">front2</div>
-                                <div class="card__face card__face--back">back2</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item" data-bs-interval="1000000">
-                    <div class="d-flex justify-content-center">
-                        <div class="scene scene--card">
-                            <div class="card">
-                                <div class="card__face card__face--front">front3</div>
-                                <div class="card__face card__face--back">back3</div>
+                                <h6 class="card__face__page card__face--front" th:text="|${vocaStat.count}/${vocas.size()}|">
+                                    order/total
+                                </h6>
+                                <div class="card__face card__face--front">
+                                    <span th:text="${voca.word}">
+                                        meaning
+                                    </span>
+                                </div>
+                                <h6 class="card__face__page card__face--back" th:text="|${vocaStat.count}/${vocas.size()}|">
+                                    order/total
+                                </h6>
+                                <div class="card__face card__face--back">
+                                    <span th:text="${voca.meaning}">
+                                        meaning
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -117,17 +63,82 @@
             </button>
         </div>
 
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6 text-center">
+                <h2 class="mt-0 text-white">Terms In this set</h2>
+                <hr class="divider" />
+            </div>
+        </div>
+
+        <div class="container mb-5 bg-light rounded p-3">
+            <div class="row mb-5">
+                <div class="col">
+                    <div class="row">
+                        <div class="col fs-2 fw-bold" th:text="${studySet.title}">
+                            title
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col fs-5" th:text="${studySet.description}">
+                            description
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <div class="col opacity-50">
+                            created by
+                        </div>
+                    </div>
+                    <div class="row fs-3">
+                        <div class="col" th:text="${studySet.member.name}">
+                            username
+                        </div>
+                    </div>
+                </div>
+                <div class="col gap-3 d-flex align-items-center justify-content-end">
+                    <button type="button" class="btn btn-primary">Modify</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-light rounded p-2">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Word</th>
+                        <th scope="col">Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="voca : ${vocas}">
+                        <th scope="row" th:text="${vocaStat.count}">1</th>
+                        <td th:text="${voca.word}">Mark</td>
+                        <td th:text="${voca.meaning}">Otto</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
 
 
     </div>
 </section>
 
 
+
 <!-- Footer-->
 <footer th:replace="fragment/footer :: footer">
     푸터
 </footer>
+
+<!-- script -->
 <th:block th:replace="fragment/script :: script"></th:block>
+
 <script>
     var cards = document.querySelectorAll('.card');
 
@@ -137,5 +148,7 @@
         });
     });
 </script>
+
+
 </body>
 </html>
