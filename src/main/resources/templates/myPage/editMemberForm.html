@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/base :: common_header(~{::title})">
+    <title>Home</title>
+</head>
+
+<body id="page-top" class="default-bg">
+<!-- Navigation-->
+<nav th:replace="layout/base :: common_nav()">
+</nav>
+
+<!-- Contact-->
+<section class="page-section h-100 d-flex align-items-center" id="signup">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6 text-center">
+                <h2 class="mt-0 text-white">Edit My Info</h2>
+                <hr class="divider" />
+            </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+            <div class="col-lg-6">
+                <form id="contactForm" action="" th:action th:object="${form}" method="post" >
+
+                    <!-- Email address input-->
+                    <div class="form-floating mb-3">
+                        <input th:field="*{id}" type="hidden"/>
+                        <input th:field="*{email}" type="hidden"/>
+                        <input class="form-control" id="email" type="email" th:value="*{email}"
+                               placeholder="name@example.com" disabled />
+                        <label for="email">Email address</label>
+                    </div>
+
+                    <!-- password input-->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="password" th:field="*{password}" type="password"
+                               th:errorclass="field-error" placeholder="Enter your password..."  />
+                        <label for="password">Current Password</label>
+                        <div class="field-error" th:errors="*{password}"></div>
+                    </div>
+
+                    <div th:if="${#fields.hasGlobalErrors()}">
+                        <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+                            글로벌 오류 메시지
+                        </p>
+                    </div>
+
+                    <!-- Name input-->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="name" th:field="*{name}" type="text"
+                               th:errorclass="field-error" placeholder="Enter your name..."  />
+                        <label for="name">name</label>
+                        <div class="field-error" th:errors="*{name}"></div>
+                    </div>
+
+                    <!-- gender radio button-->
+                    <div class="form-floating mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" id="male" th:field="*{gender}" th:value="MALE" type="radio" />
+                            <label for="male" class="form-check-label">남자</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" id="female" th:field="*{gender}" th:value="FEMALE" type="radio" />
+                            <label for="female" class="form-check-label">여자</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" id="none" th:field="*{gender}" th:value="NONE" type="radio" />
+                            <label for="none" class="form-check-label">선택안함</label>
+                        </div>
+                        <div class="field-error" th:errors="*{gender}"></div>
+                    </div>
+
+                    <!-- Submit Button-->
+                    <div class="d-grid"><button class="btn btn-primary btn-xl" type="submit">edit my info</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Footer-->
+<footer th:replace="fragment/footer :: footer">
+    푸터
+</footer>
+<th:block th:replace="fragment/script :: script"></th:block>
+</body>
+</html>

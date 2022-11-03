@@ -39,7 +39,7 @@
             <nav>
                 <ul class="pagination justify-content-center">
                     <li class="page-item" th:classappend="${pageMaker.hasPrev}? _ : 'disabled'">
-                        <a class="page-link" th:href="@{/studySets(page=${pageMaker.startPage - 2}, size=${formPage.size})}">
+                        <a class="page-link" th:href="@{/studySets(page=${formPage.number - 1}, size=${formPage.size})}">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -51,7 +51,7 @@
                            th:text="${num}">0</a>
                     </li>
                     <li class="page-item" th:classappend="${pageMaker.hasNext}? _ : 'disabled'">
-                        <a class="page-link" th:href="@{/studySets(page=${pageMaker.endPage}, size=${formPage.size})}">
+                        <a class="page-link" th:href="@{/studySets(page=${formPage.number + 1}, size=${formPage.size})}">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

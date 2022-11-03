@@ -69,7 +69,7 @@ public class TestDataInit {
                 .email("test@gmail.com")
                 .password(passwordEncoder.encode("test"))
                 .name("test")
-                .gender(Gender.MALE)
+                .gender(Gender.FEMALE)
                 .build();
         memberRepository.save(member);
         return member;

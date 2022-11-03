@@ -27,5 +27,8 @@ public class Member extends BaseTimeEntity {
     private Gender gender;
 
 
-
+    public void editInfo(Member updateMember) {
+        name = updateMember.getName();
+        gender = updateMember.getGender();
+    }
 }
