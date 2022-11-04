@@ -1,8 +1,10 @@
 package com.hello.vocavoca.web.studyset.repository;
 
+import com.hello.vocavoca.domain.member.Member;
 import com.hello.vocavoca.web.studyset.form.StudySetListForm;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +25,7 @@ public class StudySetRepositoryImpl implements StudySetRepositoryCustom{
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<StudySetListForm> findStudySetListForm(Pageable pageable) {
+    public Page<StudySetListForm> findStudySetListForm(Pageable pageable, Member member) {
 
         List<StudySetListForm> result = queryFactory
                 .select(Projections.constructor(StudySetListForm.class,
@@ -37,6 +39,7 @@ public class StudySetRepositoryImpl implements StudySetRepositoryCustom{
                         studySet.member.name
                 ))
                 .from(studySet)
+                .where(memberEq(member))
                 .orderBy(studySet.modifiedDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -45,8 +48,13 @@ public class StudySetRepositoryImpl implements StudySetRepositoryCustom{
         Long totalCount = queryFactory
                 .select(studySet.count())
                 .from(studySet)
+                .where(memberEq(member))
                 .fetchOne();
 
         return new PageImpl<>(result, pageable, totalCount);
+    }
+
+    private BooleanExpression memberEq(Member member) {
+        return member != null ? studySet.member.eq(member) : null;
     }
 }

@@ -3,12 +3,17 @@ package com.hello.vocavoca.web.myPage;
 import com.hello.vocavoca.domain.member.Member;
 import com.hello.vocavoca.domain.member.repository.MemberRepository;
 import com.hello.vocavoca.domain.myPage.MyPageService;
+import com.hello.vocavoca.domain.studyset.repository.StudySetRepository;
 import com.hello.vocavoca.web.SessionConst;
 import com.hello.vocavoca.web.argumentResolver.Login;
 import com.hello.vocavoca.web.myPage.form.ChangePasswordForm;
 import com.hello.vocavoca.web.myPage.form.EditMemberForm;
+import com.hello.vocavoca.web.pageMaker;
+import com.hello.vocavoca.web.studyset.form.StudySetListForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,8 +34,11 @@ import javax.validation.Valid;
 public class MyPageController {
 
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final StudySetRepository studySetRepository;
+
     private final MyPageService myPageService;
+
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping
     public String myPage(@Login Member member, Model model) {
@@ -106,6 +114,25 @@ public class MyPageController {
         invalidateSession(request);
 
         return "myPage/changePasswordAlert";
+    }
+
+
+    @GetMapping("/studySets")
+    public String myStudySets(@Login Member member, Pageable pageable, Model model) {
+
+        Page<StudySetListForm> formPage = studySetRepository.findStudySetListForm(pageable, member);
+
+        log.info("currentPage={}", formPage.getNumber());
+        log.info("totalPages={}", formPage.getTotalPages());
+
+        pageMaker pageMaker = new pageMaker(formPage.getNumber(), formPage.getTotalPages());
+
+        log.info("pageMaker={}", pageMaker);
+
+        model.addAttribute("formPage", formPage);
+        model.addAttribute("pageMaker", pageMaker);
+
+        return "myPage/myStudySets";
     }
 
     private Member changePasswordMember(ChangePasswordForm form) {
