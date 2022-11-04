@@ -1,8 +1,8 @@
 package com.hello.vocavoca.domain.studyset;
 
 import com.hello.vocavoca.domain.studyset.repository.StudySetRepository;
-import com.hello.vocavoca.domain.word.Voca;
-import com.hello.vocavoca.domain.word.repository.VocaRepository;
+import com.hello.vocavoca.domain.voca.Voca;
+import com.hello.vocavoca.domain.voca.repository.VocaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

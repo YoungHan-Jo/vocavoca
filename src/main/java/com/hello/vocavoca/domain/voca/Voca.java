@@ -1,4 +1,4 @@
-package com.hello.vocavoca.domain.word;
+package com.hello.vocavoca.domain.voca;
 
 import com.hello.vocavoca.domain.BaseTimeEntity;
 import com.hello.vocavoca.domain.studyset.StudySet;

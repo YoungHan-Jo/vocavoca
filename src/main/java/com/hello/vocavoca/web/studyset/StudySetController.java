@@ -4,8 +4,8 @@ import com.hello.vocavoca.domain.member.Member;
 import com.hello.vocavoca.domain.studyset.StudySet;
 import com.hello.vocavoca.domain.studyset.StudySetService;
 import com.hello.vocavoca.domain.studyset.repository.StudySetRepository;
-import com.hello.vocavoca.domain.word.Voca;
-import com.hello.vocavoca.domain.word.repository.VocaRepository;
+import com.hello.vocavoca.domain.voca.Voca;
+import com.hello.vocavoca.domain.voca.repository.VocaRepository;
 import com.hello.vocavoca.web.argumentResolver.Login;
 import com.hello.vocavoca.web.pageMaker;
 import com.hello.vocavoca.web.studyset.form.*;
@@ -151,7 +151,6 @@ public class StudySetController {
         studySetService.editStudySet(studySetId, updateStudySet, vocaList);
 
         return "redirect:/studySets/{studySetId}";
-
     }
 
 

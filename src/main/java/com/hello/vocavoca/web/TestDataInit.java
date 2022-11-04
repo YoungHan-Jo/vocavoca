@@ -6,8 +6,8 @@ import com.hello.vocavoca.domain.member.repository.MemberRepository;
 import com.hello.vocavoca.domain.studyset.StudySet;
 import com.hello.vocavoca.domain.studyset.repository.StudySetRepository;
 
-import com.hello.vocavoca.domain.word.Voca;
-import com.hello.vocavoca.domain.word.repository.VocaRepository;
+import com.hello.vocavoca.domain.voca.Voca;
+import com.hello.vocavoca.domain.voca.repository.VocaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
