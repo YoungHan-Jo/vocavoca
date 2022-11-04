@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StudySetEditForm {
+public class StudySetEditForm implements StudySetForm{
 
     private Long studySetId;
 
@@ -32,15 +32,5 @@ public class StudySetEditForm {
         title = studySet.getTitle();
         description = studySet.getDescription();
         vocaFormList = vocaForms;
-    }
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
-    public static class VocaForm {
-
-        private String word;
-        private String meaning;
     }
 }

@@ -8,9 +8,7 @@ import com.hello.vocavoca.domain.word.Voca;
 import com.hello.vocavoca.domain.word.repository.VocaRepository;
 import com.hello.vocavoca.web.argumentResolver.Login;
 import com.hello.vocavoca.web.pageMaker;
-import com.hello.vocavoca.web.studyset.form.StudySetEditForm;
-import com.hello.vocavoca.web.studyset.form.StudySetListForm;
-import com.hello.vocavoca.web.studyset.form.StudySetSaveForm;
+import com.hello.vocavoca.web.studyset.form.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -78,7 +76,7 @@ public class StudySetController {
 
         if (form.getVocaFormList() == null) {
             form.setVocaFormList(new ArrayList<>());
-            form.getVocaFormList().add(new StudySetSaveForm.VocaForm("", ""));
+            form.getVocaFormList().add(new VocaForm("", ""));
         }
 
 //        form.setTitle("제목");
@@ -96,7 +94,7 @@ public class StudySetController {
     public String add(@Login Member member,
                       @Valid @ModelAttribute("form") StudySetSaveForm form,
                       BindingResult bindingResult) {
-        filterForm(form);
+        filterEmptyIndex(form);
 
         if (bindingResult.hasErrors()) {
             return "studySets/addStudySetForm";
@@ -123,9 +121,9 @@ public class StudySetController {
 
         List<Voca> vocaList = vocaRepository.findByStudySet(studySet);
 
-        List<StudySetEditForm.VocaForm> vocaForms = new ArrayList<>();
+        List<VocaForm> vocaForms = new ArrayList<>();
         vocaList.stream().forEach(voca ->
-                vocaForms.add(StudySetEditForm.VocaForm.builder()
+                vocaForms.add(VocaForm.builder()
                         .word(voca.getWord())
                         .meaning(voca.getMeaning())
                         .build())
@@ -140,7 +138,7 @@ public class StudySetController {
     public String edit(@PathVariable Long studySetId,
                        @Valid @ModelAttribute("form") StudySetEditForm form,
                        BindingResult bindingResult) {
-
+        filterEmptyIndex(form);
 
         if (bindingResult.hasErrors()) {
             return "studySets/editStudySetForm";
@@ -172,8 +170,8 @@ public class StudySetController {
         return vocaList;
     }
 
-    private void filterForm(StudySetSaveForm form) {
-        List<StudySetSaveForm.VocaForm> vocaFormList = form.getVocaFormList();
+    private void filterEmptyIndex(StudySetForm form) {
+        List<VocaForm> vocaFormList = form.getVocaFormList();
         vocaFormList = vocaFormList.stream()
                 .filter(vocaForm -> vocaForm.getWord() != null || vocaForm.getMeaning() != null)
                 .filter(vocaForm -> !vocaForm.getWord().isEmpty() || !vocaForm.getMeaning().isEmpty())
