@@ -100,7 +100,7 @@
                 </div>
                 <div class="col gap-3 d-flex align-items-center justify-content-end">
                     <th:block th:if="${session.loginMember} and ${studySet.member.id == session.loginMember.id}">
-                        <button type="button" class="btn btn-primary">Modify</button>
+                        <button type="button" class="btn btn-primary" th:onclick="|location.href='@{/studySets/{studySetId}/edit(studySetId=${studySet.id})}'|">Modify</button>
                         <button type="button" class="btn btn-danger">Delete</button>
                     </th:block>
                 </div>

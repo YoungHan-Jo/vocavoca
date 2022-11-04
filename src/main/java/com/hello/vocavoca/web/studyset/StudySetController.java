@@ -8,6 +8,7 @@ import com.hello.vocavoca.domain.word.Voca;
 import com.hello.vocavoca.domain.word.repository.VocaRepository;
 import com.hello.vocavoca.web.argumentResolver.Login;
 import com.hello.vocavoca.web.pageMaker;
+import com.hello.vocavoca.web.studyset.form.StudySetEditForm;
 import com.hello.vocavoca.web.studyset.form.StudySetListForm;
 import com.hello.vocavoca.web.studyset.form.StudySetSaveForm;
 import lombok.RequiredArgsConstructor;
@@ -106,6 +107,47 @@ public class StudySetController {
         studySetService.addStudySet(studySet, vocaList);
 
         return "redirect:/myPage/studySets?page=0&size=6";
+    }
+
+    @GetMapping("/{studySetId}/edit")
+    public String editForm(@PathVariable Long studySetId,
+                           @ModelAttribute("form") StudySetEditForm form) {
+
+        log.info("/studySets/{id}/edit");
+
+        Optional<StudySet> optionalStudySet = studySetRepository.findById(studySetId);
+        if (optionalStudySet.isEmpty()) {
+            // TODO: 2022-11-04 예외처리
+        }
+        StudySet studySet = optionalStudySet.get();
+
+        List<Voca> vocaList = vocaRepository.findByStudySet(studySet);
+
+        List<StudySetEditForm.VocaForm> vocaForms = new ArrayList<>();
+        vocaList.stream().forEach(voca ->
+                vocaForms.add(StudySetEditForm.VocaForm.builder()
+                        .word(voca.getWord())
+                        .meaning(voca.getMeaning())
+                        .build())
+        );
+
+        form.mapper(studySet, vocaForms);
+
+        return "studySets/editStudySetForm";
+    }
+
+    @PostMapping("/{studySetId}/edit")
+    public String edit(@PathVariable Long studySetId,
+                       @Valid @ModelAttribute("form") StudySetEditForm form,
+                       BindingResult bindingResult) {
+
+
+        if (bindingResult.hasErrors()) {
+            return "studySets/editStudySetForm";
+        }
+
+        return "redirect:/studySets/{studySetId}";
+
     }
 
     private StudySet getStudySet(Member member, StudySetSaveForm form) {
