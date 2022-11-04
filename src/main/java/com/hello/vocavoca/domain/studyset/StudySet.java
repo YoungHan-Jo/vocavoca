@@ -24,4 +24,8 @@ public class StudySet extends BaseTimeEntity {
     private String title;
     private String description;
 
+    public void edit(StudySet updateStudySet) {
+        title = updateStudySet.getTitle();
+        description = updateStudySet.getDescription();
+    }
 }

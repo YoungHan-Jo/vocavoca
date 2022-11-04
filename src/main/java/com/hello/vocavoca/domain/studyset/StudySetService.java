@@ -23,4 +23,14 @@ public class StudySetService {
         studySetRepository.save(studySet);
         vocaRepository.saveAll(vocaList);
     }
+
+    @Transactional
+    public void editStudySet(Long studySetId, StudySet updateStudySet, List<Voca> vocaList) {
+        StudySet studySet = studySetRepository.findById(studySetId).get();
+
+        vocaRepository.deleteAllByStudySet(studySet);
+
+        studySet.edit(updateStudySet);
+        vocaRepository.saveAll(vocaList);
+    }
 }

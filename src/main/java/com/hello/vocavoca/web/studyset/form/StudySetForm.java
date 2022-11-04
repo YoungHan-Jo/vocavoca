@@ -6,4 +6,8 @@ public interface StudySetForm {
     List<VocaForm> getVocaFormList();
 
     void setVocaFormList(List<VocaForm> vocaFormList);
+
+    String getTitle();
+
+    String getDescription();
 }

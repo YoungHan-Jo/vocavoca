@@ -79,11 +79,6 @@ public class StudySetController {
             form.getVocaFormList().add(new VocaForm("", ""));
         }
 
-//        form.setTitle("제목");
-//        form.setDescription("설명");
-//        form.getWordFormList().add(new StudySetSaveForm.WordForm("word1", "meaning1"));
-//        form.getWordFormList().add(new StudySetSaveForm.WordForm("word2", "meaning2"));
-
         log.info("form = {}", form);
 
 
@@ -115,7 +110,7 @@ public class StudySetController {
 
         Optional<StudySet> optionalStudySet = studySetRepository.findById(studySetId);
         if (optionalStudySet.isEmpty()) {
-            // TODO: 2022-11-04 예외처리
+            // TODO: 2022-11-04 Exception
         }
         StudySet studySet = optionalStudySet.get();
 
@@ -135,7 +130,8 @@ public class StudySetController {
     }
 
     @PostMapping("/{studySetId}/edit")
-    public String edit(@PathVariable Long studySetId,
+    public String edit(@Login Member member,
+                       @PathVariable Long studySetId,
                        @Valid @ModelAttribute("form") StudySetEditForm form,
                        BindingResult bindingResult) {
         filterEmptyIndex(form);
@@ -144,11 +140,24 @@ public class StudySetController {
             return "studySets/editStudySetForm";
         }
 
+        Optional<StudySet> optionalStudySet = studySetRepository.findById(studySetId);
+        if (optionalStudySet.isEmpty()) {
+            // TODO: 2022-11-05 Exception
+        }
+        StudySet currentStudySet = optionalStudySet.get();
+
+        StudySet updateStudySet = getStudySet(member, form);
+        List<Voca> vocaList = getVocaList(form, currentStudySet);
+        studySetService.editStudySet(studySetId, updateStudySet, vocaList);
+
         return "redirect:/studySets/{studySetId}";
 
     }
 
-    private StudySet getStudySet(Member member, StudySetSaveForm form) {
+
+
+
+    private StudySet getStudySet(Member member, StudySetForm form) {
         StudySet studySet = StudySet.builder()
                 .member(member)
                 .title(form.getTitle())
@@ -157,12 +166,12 @@ public class StudySetController {
         return studySet;
     }
 
-    private List<Voca> getVocaList(StudySetSaveForm form, StudySet studySet) {
+    private List<Voca> getVocaList(StudySetForm form, StudySet currentStudySet) {
         List<Voca> vocaList = new ArrayList<>();
 
         form.getVocaFormList().stream().forEach(vocaForm ->
                 vocaList.add(Voca.builder()
-                                .studySet(studySet)
+                                .studySet(currentStudySet)
                                 .word(vocaForm.getWord())
                                 .meaning(vocaForm.getMeaning())
                                 .build())

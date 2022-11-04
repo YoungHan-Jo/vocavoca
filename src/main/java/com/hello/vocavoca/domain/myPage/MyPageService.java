@@ -21,7 +21,7 @@ public class MyPageService {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
 
         if (optionalMember.isEmpty()) {
-            // TODO: 2022-11-03 예외처리
+            // TODO: 2022-11-03 Exception
         }
 
         Member member = optionalMember.get();
@@ -33,7 +33,7 @@ public class MyPageService {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
 
         if (optionalMember.isEmpty()) {
-            // TODO: 2022-11-03 예외처리
+            // TODO: 2022-11-03 Exception
         }
         Member member = optionalMember.get();
         member.editInfo(editMember);
