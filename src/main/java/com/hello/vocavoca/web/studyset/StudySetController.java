@@ -81,7 +81,6 @@ public class StudySetController {
 
         log.info("form = {}", form);
 
-
         return "studySets/addStudySetForm";
     }
 
