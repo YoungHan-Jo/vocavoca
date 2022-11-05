@@ -1,7 +1,8 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
+
+<head th:replace="layout/base :: common_header(~{::title})">
+    <title>Home</title>
 </head>
 
 <body id="page-top" class="default-bg">
@@ -14,41 +15,25 @@
     <div class="container px-4 px-lg-5 ">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8 col-xl-6 text-center">
-                <h2 class="mt-0 text-white">Log In</h2>
-                <hr class="divider" />
+                <h2 class="mt-0 text-white">Internal Server Error</h2>
+                <hr class="divider"/>
             </div>
         </div>
         <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
             <div class="col-lg-6">
-                <form id="contactForm" action="" th:action th:object="${form}" method="post" >
+                <form id="contactForm" action="/errorReport/add" method="post" >
 
-                    <!-- Email address input-->
+                    <input type="hidden" name="errorPath" th:value="${path}"/>
+                    <input type="hidden" name="status" th:value="${status}"/>
+
+                    <!-- Message input-->
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="email" th:field="*{email}" type="email"
-                               th:errorclass="field-error" placeholder="name@example.com" />
-                        <label for="email">Email address</label>
-                        <div class="field-error" th:errors="*{email}"></div>
-                    </div>
-
-                    <!-- password input-->
-                    <div class="form-floating mb-3">
-                        <input class="form-control" id="password" th:field="*{password}" type="password"
-                               th:errorclass="field-error" placeholder="Enter your password..."  />
-                        <label for="password">Password</label>
-                        <div class="field-error" th:errors="*{password}"></div>
-                    </div>
-
-                    <div th:if="${#fields.hasGlobalErrors()}">
-                        <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
-                            글로벌 오류 메시지
-                        </p>
+                        <textarea class="form-control" id="message" name="message" type="text" placeholder="Enter your message here..." style="height: 10rem"></textarea>
+                        <label for="message">Message</label>
                     </div>
 
                     <!-- Submit Button-->
-                    <div class="d-grid"><button class="btn btn-primary btn-xl" type="submit">Log In</button></div>
-                    <div class="row justify-content-center">
-                        <button class="w-50 btn btn-dark btn-sm mt-3"
-                                th:onclick="|location.href='@{/members/add}'|" type="button">SIGN IN</button>
+                    <div class="d-grid"><button class="btn btn-primary btn-xl" type="submit">Send Report</button></div>
                     </div>
                 </form>
             </div>
@@ -56,41 +41,16 @@
     </div>
 </section>
 
-
 <!-- Footer-->
 <footer th:replace="fragment/footer :: footer">
     푸터
 </footer>
 <th:block th:replace="fragment/script :: script"></th:block>
 </body>
-
-
-<body>
-
-
-
-<div class="container" style="max-width: 600px">
-    <div class="py-5 text-center">
-        <h2>500 오류 화면 스프링 부트 제공</h2>
-    </div>
-    <div>
-        <p>오류 화면 입니다.</p>
-    </div>
-    <ul>
-        <li>오류 정보</li>
-        <ul>
-            <li th:text="|timestamp: ${timestamp}|"></li>
-            <li th:text="|path: ${path}|"></li>
-            <li th:text="|status: ${status}|"></li>
-            <li th:text="|message: ${message}|"></li>
-            <li th:text="|error: ${error}|"></li>
-            <li th:text="|exception: ${exception}|"></li>
-            <li th:text="|errors: ${errors}|"></li>
-            <li th:text="|trace: ${trace}|"></li>
-        </ul>
-        </li>
-    </ul>
-    <hr class="my-4">
-</div> <!-- /container -->
-</body>
 </html>
+
+
+
+
+
+

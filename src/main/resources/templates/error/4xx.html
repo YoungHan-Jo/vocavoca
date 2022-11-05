@@ -1,17 +1,50 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
+
+<head th:replace="layout/base :: common_header(~{::title})">
+    <title>Home</title>
 </head>
-<body>
-<div class="container" style="max-width: 600px">
-    <div class="py-5 text-center">
-        <h2>4xx 오류 화면 스프링 부트 제공</h2>
+
+<body id="page-top" class="default-bg">
+<!-- Navigation-->
+<nav th:replace="layout/base :: common_nav()">
+</nav>
+
+<!-- Contact-->
+<section class="page-section h-100 d-flex align-items-center" >
+    <div class="container px-4 px-lg-5 ">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6 text-center">
+                <h2 class="mt-0 text-white">Bad Request Error</h2>
+                <hr class="divider"/>
+            </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+            <div class="col-lg-6">
+                <form id="contactForm" action="/errorReport/add" method="post" >
+
+                    <input type="hidden" name="errorPath" th:value="${path}"/>
+                    <input type="hidden" name="status" th:value="${status}"/>
+
+                    <!-- Message input-->
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" id="message" name="message" type="text" placeholder="Enter your message here..." style="height: 10rem"></textarea>
+                        <label for="message">Message</label>
+                    </div>
+
+                    <!-- Submit Button-->
+                    <div class="d-grid"><button class="btn btn-primary btn-xl" type="submit">Send Report</button></div>
+            </div>
+            </form>
+        </div>
     </div>
-    <div>
-        <p>오류 화면 입니다.</p>
     </div>
-    <hr class="my-4">
-</div> <!-- /container -->
+</section>
+
+<!-- Footer-->
+<footer th:replace="fragment/footer :: footer">
+    푸터
+</footer>
+<th:block th:replace="fragment/script :: script"></th:block>
 </body>
 </html>

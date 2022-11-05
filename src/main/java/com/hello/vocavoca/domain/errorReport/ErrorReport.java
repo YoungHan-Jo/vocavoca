@@ -22,7 +22,7 @@ public class ErrorReport extends BaseTimeEntity {
     private Long id;
 
     private String errorPath;
-
+    private String status;
     private String message;
 
 }
