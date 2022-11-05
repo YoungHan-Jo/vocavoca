@@ -16,6 +16,10 @@ spring:
 
 
 server:
+  error:
+    whitelabel:
+      enabled: false
+
   servlet:
     session:
       tracking-modes: cookie

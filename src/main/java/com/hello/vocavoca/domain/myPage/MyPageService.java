@@ -2,6 +2,7 @@ package com.hello.vocavoca.domain.myPage;
 
 import com.hello.vocavoca.domain.member.Member;
 import com.hello.vocavoca.domain.member.repository.MemberRepository;
+import com.hello.vocavoca.web.exception.MemberException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,7 @@ public class MyPageService {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
 
         if (optionalMember.isEmpty()) {
-            // TODO: 2022-11-03 Exception
+            throw new MemberException();
         }
 
         Member member = optionalMember.get();
@@ -33,7 +34,7 @@ public class MyPageService {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
 
         if (optionalMember.isEmpty()) {
-            // TODO: 2022-11-03 Exception
+            throw new MemberException();
         }
         Member member = optionalMember.get();
         member.editInfo(editMember);

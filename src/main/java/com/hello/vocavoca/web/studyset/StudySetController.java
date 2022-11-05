@@ -7,6 +7,7 @@ import com.hello.vocavoca.domain.studyset.repository.StudySetRepository;
 import com.hello.vocavoca.domain.voca.Voca;
 import com.hello.vocavoca.domain.voca.repository.VocaRepository;
 import com.hello.vocavoca.web.argumentResolver.Login;
+import com.hello.vocavoca.web.exception.StudySetException;
 import com.hello.vocavoca.web.pageMaker;
 import com.hello.vocavoca.web.studyset.form.*;
 import lombok.RequiredArgsConstructor;
@@ -58,14 +59,14 @@ public class StudySetController {
 
         Optional<StudySet> optionalStudySet = studySetRepository.findById(studySetId);
         if (optionalStudySet.isEmpty()) {
-            // TODO: 2022-11-01  exception
+            throw new StudySetException();
         }
 
         StudySet studySet = optionalStudySet.get();
         List<Voca> vocas = vocaRepository.findByStudySet(studySet);
 
         model.addAttribute("studySet", studySet);
-    model.addAttribute("vocas", vocas);
+        model.addAttribute("vocas", vocas);
 
         return "studySets/studySet";
     }
@@ -109,7 +110,7 @@ public class StudySetController {
 
         Optional<StudySet> optionalStudySet = studySetRepository.findById(studySetId);
         if (optionalStudySet.isEmpty()) {
-            // TODO: 2022-11-04 Exception
+            throw new StudySetException();
         }
         StudySet studySet = optionalStudySet.get();
 
@@ -141,7 +142,7 @@ public class StudySetController {
 
         Optional<StudySet> optionalStudySet = studySetRepository.findById(studySetId);
         if (optionalStudySet.isEmpty()) {
-            // TODO: 2022-11-05 Exception
+            throw new StudySetException();
         }
         StudySet currentStudySet = optionalStudySet.get();
 
