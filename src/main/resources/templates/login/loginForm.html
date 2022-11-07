@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="layout/base :: common_header(~{::title})">
-    <title>Home</title>
+    <title th:text="#{head.title}">Home</title>
 </head>
 
 <body id="page-top" class="default-bg">
@@ -15,7 +15,7 @@
     <div class="container px-4 px-lg-5 ">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8 col-xl-6 text-center">
-                <h2 class="mt-0 text-white">Log In</h2>
+                <h2 class="mt-0 text-white" th:text="#{login.title}">Log In</h2>
                 <hr class="divider" />
             </div>
         </div>
@@ -27,7 +27,7 @@
                     <div class="form-floating mb-3">
                         <input class="form-control" id="email" th:field="*{email}" type="email"
                                th:errorclass="field-error" placeholder="name@example.com" />
-                        <label for="email">Email address</label>
+                        <label for="email" th:text="#{login.label.email}">Email address</label>
                         <div class="field-error" th:errors="*{email}"></div>
                     </div>
 
@@ -35,7 +35,7 @@
                     <div class="form-floating mb-3">
                         <input class="form-control" id="password" th:field="*{password}" type="password"
                                th:errorclass="field-error" placeholder="Enter your password..."  />
-                        <label for="password">Password</label>
+                        <label for="password" th:text="#{login.label.password}">Password</label>
                         <div class="field-error" th:errors="*{password}"></div>
                     </div>
 
@@ -46,10 +46,10 @@
                     </div>
 
                     <!-- Submit Button-->
-                    <div class="d-grid"><button class="btn btn-primary btn-xl" type="submit">Log In</button></div>
+                    <div class="d-grid"><button class="btn btn-primary btn-xl" type="submit" th:text="#{login.button.login}">Log In</button></div>
                     <div class="row justify-content-center">
                         <button class="w-50 btn btn-dark btn-sm mt-3"
-                                th:onclick="|location.href='@{/members/add}'|" type="button">SIGN IN</button>
+                                th:onclick="|location.href='@{/members/add}'|" type="button" th:text="#{login.button.signIn}">SIGN IN</button>
                     </div>
                 </form>
             </div>

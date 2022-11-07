@@ -3,7 +3,7 @@
 <head th:fragment="common_header(title)">
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <title th:replace="${title}">레이아웃 타이틀</title>
+    <title th:replace="${title}">head title</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" href="assets/favicon.ico"/>
     <!-- Bootstrap Icons-->
@@ -48,40 +48,39 @@
 
 <nav th:fragment="common_nav()" class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#page-top" th:href="@{/}">VocaVoca</a>
+        <a class="navbar-brand" href="#page-top" th:href="@{/}" th:text="#{nav.home}">VocaVoca</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto my-2 my-lg-0">
 
-                <li class="nav-item"><a class="nav-link" href="#about" th:href="@{/studySets(size=6,page=0)}">Study
-                    Sets</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about"
+                       th:text="#{nav.studySet}" th:href="@{/studySets(size=6,page=0)}">Study Sets</a>
+                </li>
 
                 <th:block th:unless="${session.loginMember}">
                     <li class="nav-item">
-                        <a class="nav-link" href="#signup" th:href="@{/login}">Log In</a>
+                        <a class="nav-link" href="#signup" th:href="@{/login}" th:text="#{nav.login}">Log In</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#signup" th:href="@{/members/add}">Sign Up</a>
+                        <a class="nav-link" href="#signup" th:href="@{/members/add}" th:text="#{nav.signUp}">Sign Up</a>
                     </li>
                 </th:block>
                 <th:block th:if="${session.loginMember}">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            My Page
-                        </a>
+                           aria-expanded="false" th:text="#{nav.myPage}">My Page</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" th:href="@{/myPage}">My Info</a></li>
-                            <li><a class="dropdown-item" href="#" th:href="@{/myPage/password}">Change Password</a></li>
-                            <li><a class="dropdown-item" href="#" th:href="@{/myPage/studySets(size=6,page=0)}">My Study Sets</a></li>
+                            <li><a class="dropdown-item" href="#" th:href="@{/myPage}" th:text="#{nav.myPage.myInfo}">My Info</a></li>
+                            <li><a class="dropdown-item" href="#" th:href="@{/myPage/password}" th:text="#{nav.myPage.changePassword}">Change Password</a></li>
+                            <li><a class="dropdown-item" href="#" th:href="@{/myPage/studySets(size=6,page=0)}" th:text="#{nav.myPage.myStudySets}">My Study Sets</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
                         <form id="logout" th:action="@{/logout}" method="post">
-                            <a class="nav-link " href="#" onclick="document.getElementById('logout').submit();">Log
-                                Out</a>
+                            <a class="nav-link " href="#" onclick="document.getElementById('logout').submit();" th:text="#{nav.logout}">Log Out</a>
                         </form>
                     </li>
                 </th:block>
@@ -89,6 +88,27 @@
         </div>
     </div>
 </nav>
+
+
+<section th:fragment="errorContent(h2, form)" class="page-section h-100 d-flex align-items-center" >
+    <div class="container px-4 px-lg-5 ">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6 text-center">
+                <h2 th:replace="${h2}"></h2>
+                <hr class="divider"/>
+            </div>
+            <div class="col-lg-8 align-self-baseline">
+                <p class="text-white-75 mb-5" th:text="#{error.message}">If you submit a report about the error, It helps us to provide better service.</p>
+            </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+            <div class="col-lg-6">
+                <form th:replace="${form}"></form>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 
 </html>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="layout/base :: common_header(~{::title})">
-    <title>Home</title>
+    <title th:text="#{head.title}">Home</title>
 </head>
 
 <body id="page-top" class="default-bg">
@@ -16,7 +16,7 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8 col-xl-6 text-center">
-                <h2 class="mt-0 text-white">Study Sets</h2>
+                <h2 class="mt-0 text-white" th:text="#{studySet.title}">Study Sets</h2>
                 <hr class="divider" />
             </div>
         </div>
@@ -24,7 +24,8 @@
         <div class="row gx-4 gx-lg-5 justify-content-end mt-3 mb-3">
             <div class="col-lg-8 col-xl-6 text-end">
                 <button type="button" class="btn btn-primary"
-                        th:onclick="|location.href='@{/studySets/add}'|">create</button>
+                        th:onclick="|location.href='@{/studySets/add}'|"
+                        th:text="#{studySet.button.create}">create</button>
             </div>
         </div>
 
@@ -34,8 +35,8 @@
                 <div class="card h-100 hover-pointer hover-card" th:onclick="|location.href='@{/studySets/{studySetId}(studySetId=${studySet.id})}'|">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${studySet.title}">Card title</h5>
-                        <p class="card-text opacity-50" th:text="|${studySet.count} words|">This is a longer</p>
-                        <p class="card-text" th:text="|writer : ${studySet.writer}|">This is a longer</p>
+                        <p class="card-text opacity-50" th:text="|${studySet.count} #{studySet.card.words}|">This is a longer</p>
+                        <p class="card-text" th:text="|#{studySet.card.writer} : ${studySet.writer}|">This is a longer</p>
                     </div>
                 </div>
             </div>

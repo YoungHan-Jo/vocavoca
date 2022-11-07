@@ -3,7 +3,7 @@
 
 <!-- head -->
 <head th:replace="layout/base :: common_header(~{::title})">
-    <title>Home</title>
+    <title th:text="#{head.title}">Home</title>
 </head>
 <Head th:replace="fragment/style :: style-card"></Head>
 
@@ -20,7 +20,7 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8 col-xl-6 text-center">
-                <h2 class="mt-0 text-white">Study Set</h2>
+                <h2 class="mt-0 text-white" th:text="#{studySet.info.title}">Study Set</h2>
                 <hr class="divider" />
             </div>
         </div>
@@ -65,7 +65,7 @@
 
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8 col-xl-6 text-center">
-                <h2 class="mt-0 text-white">Terms In this set</h2>
+                <h2 class="mt-0 text-white" th:text="#{studySet.info.terms.title}">Terms In this set</h2>
                 <hr class="divider" />
             </div>
         </div>
@@ -88,9 +88,7 @@
             <div class="row border-top pt-3">
                 <div class="col">
                     <div class="row">
-                        <div class="col opacity-50">
-                            created by
-                        </div>
+                        <div class="col opacity-50" th:text="#{studySet.info.writer}">created by</div>
                     </div>
                     <div class="row fs-3">
                         <div class="col" th:text="${studySet.member.name}">
@@ -100,8 +98,10 @@
                 </div>
                 <div class="col gap-3 d-flex align-items-center justify-content-end">
                     <th:block th:if="${session.loginMember} and ${studySet.member.id == session.loginMember.id}">
-                        <button type="button" class="btn btn-primary" th:onclick="|location.href='@{/studySets/{studySetId}/edit(studySetId=${studySet.id})}'|">Modify</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-primary"
+                                th:onclick="|location.href='@{/studySets/{studySetId}/edit(studySetId=${studySet.id})}'|"
+                                th:text="#{studySet.info.button.modify}">Modify</button>
+                        <button type="button" class="btn btn-danger" th:text="#{studySet.info.button.delete}">Delete</button>
                     </th:block>
                 </div>
             </div>
@@ -112,8 +112,8 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Word</th>
-                        <th scope="col">Meaning</th>
+                        <th scope="col" th:text="#{studySet.info.word}">Word</th>
+                        <th scope="col" th:text="#{studySet.info.meaning}">Meaning</th>
                     </tr>
                 </thead>
                 <tbody>

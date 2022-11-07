@@ -1,6 +1,15 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html>
+    <body>
+        <input id="message" th:value="#{errorReport.alertMessage}" type="hidden"/>
+    </body>
+</html>
+
 <script th:inline="javascript">
 
-    var message = "제출해주셔서 감사합니다. 홈으로 이동합니다.";
+    const input = document.querySelector('#message');
+    let message = input.value;
     alert(message);
 
     location.replace("/");

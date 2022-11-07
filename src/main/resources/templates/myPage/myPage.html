@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="layout/base :: common_header(~{::title})">
-    <title>Home</title>
+    <title th:text="#{head.title}">Home</title>
 </head>
 
 <body id="page-top" class="default-bg">
@@ -15,7 +15,7 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8 col-xl-6 text-center">
-                <h2 class="mt-0 text-white">My Info</h2>
+                <h2 class="mt-0 text-white" th:text="#{myInfo.title}">My Info</h2>
                 <hr class="divider" />
             </div>
         </div>
@@ -26,7 +26,7 @@
                     <div class="row mb-3 border-bottom">
                         <div class="col">
                             <div class="row">
-                                <div class="col fs-5" >
+                                <div class="col fs-5" th:text="#{myInfo.email}">
                                     Email
                                 </div>
                             </div>
@@ -40,7 +40,7 @@
                     <div class="row mb-3 border-bottom">
                         <div class="col">
                             <div class="row">
-                                <div class="col fs-5" >
+                                <div class="col fs-5" th:text="#{myInfo.name}">
                                     name
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
                     <div class="row mb-3 border-bottom">
                         <div class="col">
                             <div class="row">
-                                <div class="col fs-5" >
+                                <div class="col fs-5" th:text="#{myInfo.gender}">
                                     Gender
                                 </div>
                             </div>
@@ -68,7 +68,8 @@
                     <div class="row pt-5">
                         <div class="col gap-3 d-flex align-items-center justify-content-center">
                             <button type="button" class="btn btn-primary"
-                                    th:onclick="|location.href='@{/myPage/edit}'|">Go To Edit</button>
+                                    th:onclick="|location.href='@{/myPage/edit}'|"
+                                    th:text="#{myInfo.button.goToEdit}">Go To Edit</button>
                         </div>
                     </div>
                 </div>

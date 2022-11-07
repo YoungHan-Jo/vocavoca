@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="layout/base :: common_header(~{::title})">
-    <title>Home</title>
+    <title th:text="#{head.title}">Home</title>
 </head>
 
 <body id="page-top" class="default-bg">
@@ -15,7 +15,7 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8 col-xl-6 text-center">
-                <h2 class="mt-0 text-white">Sign Up</h2>
+                <h2 class="mt-0 text-white" th:text="#{signUp.title}">Sign Up</h2>
                 <hr class="divider" />
             </div>
         </div>
@@ -27,7 +27,7 @@
                     <div class="form-floating mb-3">
                         <input class="form-control" id="email" th:field="*{email}" type="email"
                                th:errorclass="field-error" placeholder="name@example.com" />
-                        <label for="email">Email address</label>
+                        <label for="email" th:text="#{signUp.label.email}">Email address</label>
                         <div class="field-error" th:errors="*{email}"></div>
                     </div>
 
@@ -35,7 +35,7 @@
                     <div class="form-floating mb-3">
                         <input class="form-control" id="password" th:field="*{password}" type="password"
                                th:errorclass="field-error" placeholder="Enter your password..."  />
-                        <label for="password">Password</label>
+                        <label for="password" th:text="#{signUp.label.password}">Password</label>
                         <div class="field-error" th:errors="*{password}"></div>
                     </div>
 
@@ -43,7 +43,7 @@
                     <div class="form-floating mb-3">
                         <input class="form-control" id="passwordConfirm" th:field="*{passwordConfirm}" type="password"
                                th:errorclass="field-error" placeholder="Confirm your password..."  />
-                        <label for="passwordConfirm">Confirm Password</label>
+                        <label for="passwordConfirm" th:text="#{signUp.label.passwordConfirm}">Confirm Password</label>
                         <div class="field-error" th:errors="*{passwordConfirm}"></div>
                     </div>
                     <div th:if="${#fields.hasGlobalErrors()}">
@@ -56,7 +56,7 @@
                     <div class="form-floating mb-3">
                         <input class="form-control" id="name" th:field="*{name}" type="text"
                                th:errorclass="field-error" placeholder="Enter your name..."  />
-                        <label for="name">name</label>
+                        <label for="name" th:text="#{signUp.label.name}">name</label>
                         <div class="field-error" th:errors="*{name}"></div>
                     </div>
 
@@ -64,21 +64,21 @@
                     <div class="form-floating mb-3">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" id="male" th:field="*{gender}" th:value="MALE" type="radio" />
-                            <label for="male" class="form-check-label">남자</label>
+                            <label for="male" class="form-check-label" th:text="#{gender.male}">Male</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" id="female" th:field="*{gender}" th:value="FEMALE" type="radio" />
-                            <label for="female" class="form-check-label">여자</label>
+                            <label for="female" class="form-check-label" th:text="#{gender.female}">Female</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" id="none" th:field="*{gender}" th:value="NONE" type="radio" />
-                            <label for="none" class="form-check-label">선택안함</label>
+                            <label for="none" class="form-check-label" th:text="#{gender.none}">None</label>
                         </div>
                         <div class="field-error" th:errors="*{gender}"></div>
                     </div>
 
                     <!-- Submit Button-->
-                    <div class="d-grid"><button class="btn btn-primary btn-xl" type="submit">sign up</button></div>
+                    <div class="d-grid"><button class="btn btn-primary btn-xl" type="submit" th:text="#{signUp.button.signUp}">sign up</button></div>
                 </form>
             </div>
         </div>

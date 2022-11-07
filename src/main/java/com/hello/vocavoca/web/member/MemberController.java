@@ -43,7 +43,7 @@ public class MemberController {
 
         if (form.getPassword() != null && form.getPasswordConfirm() != null) {
             if (!form.getPassword().equals(form.getPasswordConfirm())) {
-                bindingResult.reject("passwordConfirm",null,"비밀번호 확인이 일치하지 않습니다.");
+                bindingResult.reject("passwordConfirm",null,"Please Select your gender.");
             }
         }
 
